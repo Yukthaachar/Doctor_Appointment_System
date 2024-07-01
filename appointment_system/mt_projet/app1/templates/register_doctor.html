@@ -1,0 +1,95 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Register as Doctor</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-image: url('{% static "images/img6.jpg" %}');
+            background-size: cover;
+            background-position: center;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            padding: 20px;
+            border: 1px solid #ccc;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background: rgba(241, 241, 242, 0.9); /* Light grey with transparency */
+            max-width: 450px; /* Adjust width as needed */
+            width: 100%;
+            margin: 20px 40% 20px 20px; 
+            border-radius: 10px; /* Added border-radius for better look */
+        }
+        .errorlist {
+            color: red;
+            list-style-type: none;
+            padding: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center">Register as Doctor</h1>
+        <form method="post" class="mt-3">
+            {% csrf_token %}
+            {{ user_form.non_field_errors }}
+            {{ profile_form.non_field_errors }}
+
+            <div class="form-group">
+                <label for="id_username">Username:</label>
+                <input type="text" class="form-control" id="id_username" name="username" value="{{ user_form.username.value|default_if_none:'' }}" required>
+                {{ user_form.username.errors }}
+            </div>
+
+            <div class="form-group">
+                <label for="id_email">Email:</label>
+                <input type="email" class="form-control" id="id_email" name="email" value="{{ user_form.email.value|default_if_none:'' }}" required>
+                {{ user_form.email.errors }}
+            </div>
+
+            <div class="form-group">
+                <label for="id_specialization">Specialization:</label>
+                <input type="text" class="form-control" id="id_specialization" name="specialization" value="{{ profile_form.specialization.value|default_if_none:'' }}" required>
+                {{ profile_form.specialization.errors }}
+            </div>
+
+            <div class="form-group">
+                <label for="id_experience">Experience:</label>
+                <input type="number" class="form-control" id="id_experience" name="experience" value="{{ profile_form.experience.value|default_if_none:'' }}" required>
+                {{ profile_form.experience.errors }}
+            </div>
+
+            <div class="form-group">
+                <label for="id_password1">Password:</label>
+                <input type="password" class="form-control" id="id_password1" name="password1" required>
+                {{ user_form.password1.errors }}
+            </div>
+
+            <div class="form-group">
+                <label for="id_password2">Password confirmation:</label>
+                <input type="password" class="form-control" id="id_password2" name="password2" required>
+                {{ user_form.password2.errors }}
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-block">Register</button>
+        </form>
+        <div class="login-link text-center mt-3">
+            <p>Already registered? <a href="{% url 'login_view' 'doctor' %}">Login here</a></p>
+            <p><a href="{% url 'index' %}"> Go Back</a></p>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

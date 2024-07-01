@@ -1,0 +1,76 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Doctor Appointment System</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #A1D6E2;
+            background-image: url('{% static "images/img6.jpg" %}'); /* Adjust image path */
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+        }
+        main {
+            text-align: center;
+            width: 400px; /* Adjust width as needed */
+            padding: 20px;
+            border: 1px solid #ccc;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background: rgba(246, 249, 249, 0.9); /* Light grey with transparency */
+            border-radius: 10px;
+        }
+        h2 {
+            color: #333;
+        }
+        form {
+            margin-top: 20px;
+        }
+        input {
+            margin-bottom: 10px;
+            padding: 8px;
+            width: 100%;
+            box-sizing: border-box;
+            border-radius: 10px;
+        }
+        button {
+            padding: 10px 20px;
+            background: #007BFF;
+            border-radius: 5px;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <h2>Login</h2>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary btn-block">Login</button>
+            <br> <p><a href="{% url 'index' %}"> Go Back</a></p>
+        </form>
+    </main>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

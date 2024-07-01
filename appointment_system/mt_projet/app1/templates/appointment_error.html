@@ -1,0 +1,100 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Appointment Error</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('{% static "images/img6.jpg" %}');
+            background-size: cover;
+            background-position: center;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .header {
+            width: 100%;
+            background-color: #00246B;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .error-container {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            width: 100%;
+            margin-top: 80px; /* Adjust margin to push content below header */
+            text-align: center;
+        }
+
+        h1 {
+            color: #f4f4f4; /* Adjust header text color */
+            margin-bottom: 20px;
+        }
+
+        .error-message p {
+            color: #d9534f;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        a {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 10px 20px;
+            background-color: #00246B;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        a:hover {
+            background-color: #001a4d;
+        }
+
+        .back-link {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Appointment Error</h1>
+    </div>
+
+    <div class="error-container">
+        <!-- Error Message Section -->
+        {% if error_message %}
+            <div class="error-message">
+                <p>{{ error_message }}</p>
+            </div>
+        {% endif %}
+
+        <!-- Back to Appointment Form Link -->
+        <div class="back-link">
+            <a href="{% url 'book_appointment' %}">Back to Appointment Form</a>
+        </div>
+        
+        <!-- Back to Dashboard Link -->
+        <div class="back-link">
+            <a href="{% url 'patient_dashboard' %}">Back to Dashboard</a>
+        </div>
+    </div>
+</body>
+</html>

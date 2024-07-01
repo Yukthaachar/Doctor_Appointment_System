@@ -1,0 +1,82 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Doctor Appointment System</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #735DA5; 
+            background-image: url('{% static "images/img6.jpg" %}');
+            background-size: cover;
+            background-position: center;
+            margin: 0;
+            padding: 10px;
+        }
+
+        .container {
+            width: 50%; /* Adjust width as needed */
+            max-width: 600px; /* Ensure it doesn't get too wide on large screens */
+            text-align: center;
+            background-color: rgba(239, 241, 243, 0.8); /* Lightest blue */
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Optional: add a slight shadow for better visibility */
+        }
+
+        h1 {
+            color: black;
+            margin-bottom: 30px;
+        }
+
+        .btn-custom {
+            width: 200px;
+            padding: 10px 0;
+            margin-bottom: 20px;
+            font-size: 20px;
+            border-radius: 5px;
+        }
+
+        .btn-doctor {
+            border-color: #4b4bff;
+        }
+
+        .btn-patient {
+            border-color: #3ee80a;
+        }
+
+        .btn-admin {
+            border-color: #ff4b4b;
+        }
+
+        .btn-custom:hover {
+            color: #540ef8;
+        }
+
+        .list-unstyled {
+            padding: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Doctor Appointment System</h1>
+        <ul class="list-unstyled">
+            <li><a class="btn btn-outline-primary btn-custom btn-doctor" href="{% url 'register_view' 'doctor' %}">Doctor</a></li>
+            <li><a class="btn btn-outline-success btn-custom btn-patient" href="{% url 'register_view' 'patient' %}">Patient</a></li>
+            <li><a class="btn btn-outline-danger btn-custom btn-admin" href="{% url 'admin:login' %}">Admin</a></li>
+        </ul>
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
