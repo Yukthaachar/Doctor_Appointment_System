@@ -40,3 +40,8 @@ class PatientProfileForm(forms.ModelForm):
     class Meta:
         model = Patient
         fields = ['age', 'medical_history']
+
+class RescheduleAppointmentForm(forms.ModelForm):
+    class Meta:
+        model = Appointment
+        fields = ['doctor', 'appointment_date', 'appointment_time']

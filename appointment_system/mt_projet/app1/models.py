@@ -24,9 +24,9 @@ class Appointment(models.Model):
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
     appointment_date = models.DateField()
     appointment_time = models.TimeField()
-    status = models.CharField(max_length=20, choices=[('Pending', 'Pending'), ('Accepted', 'Accepted'), ('Rejected', 'Rejected')], default='Pending')
+    status = models.CharField(max_length=20, choices=[('Pending', 'Pending'), ('Accepted', 'Accepted'), ('Rejected', 'Rejected'),('Rescheduled', 'Rescheduled')], default='Pending')
     is_accepted = models.BooleanField(default=False)  # New field to track acceptance by doctor
-
+    is_rescheduled = models.BooleanField(default=False)  
     class Meta:
         unique_together = ('doctor', 'appointment_date', 'appointment_time')
 

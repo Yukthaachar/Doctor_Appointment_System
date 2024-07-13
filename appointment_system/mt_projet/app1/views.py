@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from .forms import UserRegisterForm, PatientRegisterForm, DoctorRegisterForm, LoginForm, AppointmentForm,DoctorProfileForm, PatientProfileForm
+from .forms import UserRegisterForm, PatientRegisterForm, DoctorRegisterForm, LoginForm, AppointmentForm,DoctorProfileForm, PatientProfileForm,RescheduleAppointmentForm
 from .models import Doctor, Patient, Appointment
 from datetime import datetime,date,time
 def index(request):
@@ -209,3 +209,38 @@ def doctors_by_specialization(request):
         'selected_specialization': selected_specialization,
         'doctors': doctors,
     })
+
+@login_required
+def reschedule_appointment(request, appointment_id):
+    appointment = get_object_or_404(Appointment, id=appointment_id)
+
+    if request.method == 'POST':
+        form = RescheduleAppointmentForm(request.POST, instance=appointment)
+        if form.is_valid():
+            doctor = form.cleaned_data['doctor']
+            appointment_date = form.cleaned_data['appointment_date']
+            appointment_time = form.cleaned_data['appointment_time']
+            
+            # Check for conflicting appointments
+            if Appointment.objects.filter(
+                doctor=doctor,
+                appointment_date=appointment_date,
+                appointment_time=appointment_time
+            ).exists():
+                error_message = 'This appointment slot is already booked. Please choose a different time.'
+                return render(request, 'reschedule_appointment.html', {'form': form, 'error_message': error_message})
+            
+            if appointment_date < date.today() or (appointment_date == date.today() and appointment_time < datetime.now().time()):
+                error_message = 'Appointment time cannot be in the past.'
+                return render(request, 'reschedule_appointment.html', {'form': form, 'error_message': error_message})
+            
+            rescheduled_appointment = form.save(commit=False)
+            rescheduled_appointment.status = 'Rescheduled'  # Update status
+            rescheduled_appointment.is_rescheduled = True  # Mark as rescheduled
+            rescheduled_appointment.save()
+            messages.success(request, 'Appointment rescheduled successfully.')
+            return redirect('doctor_dashboard')  # Redirect to patient dashboard
+    else:
+        form = RescheduleAppointmentForm(instance=appointment)
+
+    return render(request, 'reschedule_appointment.html', {'form': form})

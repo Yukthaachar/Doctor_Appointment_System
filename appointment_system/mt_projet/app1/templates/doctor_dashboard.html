@@ -138,12 +138,15 @@
                     <div class="appointment-details">
                         {{ appointment.appointment_date }} at {{ appointment.appointment_time }} with {{ appointment.patient.user.username }} - Status: {{ appointment.status }}
                     </div>
-                    <form method="post" action="{% url 'doctor_dashboard' %}" class="appointment-actions">
-                        {% csrf_token %}
-                        <input type="hidden" name="appointment_id" value="{{ appointment.id }}">
-                        <button type="submit" name="status" value="Accepted" class="btn btn-success">Accept</button>
-                        <button type="submit" name="status" value="Rejected" class="btn btn-danger">Reject</button>
-                    </form>
+                    <div class="appointment-actions">
+                        <form method="post" action="{% url 'doctor_dashboard' %}">
+                            {% csrf_token %}
+                            <input type="hidden" name="appointment_id" value="{{ appointment.id }}">
+                            <button type="submit" name="status" value="Accepted" class="btn btn-success">Accept</button>
+                            <button type="submit" name="status" value="Rejected" class="btn btn-danger">Reject</button>
+                        </form>
+                        <a href="{% url 'reschedule_appointment' appointment.id %}" class="btn btn-warning">Reschedule</a>
+                    </div>
                 </li>
             {% endfor %}
         </ul>
